@@ -1,6 +1,10 @@
 ## Author: James Norcross
 ## Date: 2/23/15
-## Description:
+## Description: Finds first four consecutive numbers that have 4 distinct prime
+## factors
+## Note: After solving and checking solution forum note a solution that used
+## a modification of the prime sieve method to populate an array that had
+## a count of prime factors for each element.  Very nifty!
 
 from math import sqrt
 
