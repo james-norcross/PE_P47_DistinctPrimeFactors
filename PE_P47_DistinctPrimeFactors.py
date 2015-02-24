@@ -38,16 +38,25 @@ def listFromSieve(sieve):
     return myList
 
 ## determines whether number has n distinct prime factors
-def hasNDistinctPrimeFactors(primes, n, number):
+def hasNDistinctPrimeFactors(primes, sieve, n, number):
     
     factorCount = 0
     primeIndex = 0
+    maxPrime = sqrt(number)
     
-    while(primes[primeIndex] < number):
+    while(primes[primeIndex] < maxPrime):
         if(number % primes[primeIndex] == 0):
             factorCount += 1
             if(factorCount > n):
                 return False
+            ## reduce number by all factors of this prime
+            while(number % primes[primeIndex] == 0):
+                number = number/primes[primeIndex]
+            ## if remaining number is prime then done factoring
+            if(sieve[number]):
+                factorCount += 1
+                break
+
         primeIndex += 1
         
     if(factorCount == n):
@@ -63,7 +72,7 @@ consecutive = 0
 initial = 0
 
 for i in range(1000000):
-    if(hasNDistinctPrimeFactors(primes, 4, i)):
+    if(hasNDistinctPrimeFactors(primes, sieve, 4, i)):
         consecutive += 1
         if(consecutive == 1):
             initial = i
